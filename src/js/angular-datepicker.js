@@ -5,7 +5,7 @@
   'use strict';
 
   angular.module('720kb.datepicker', [])
-		.directive('datepicker', ['$window', '$compile', '$locale', '$filter', '$interpolate', function manageDirective($window, $compile, $locale, $filter, $interpolate) {
+    .directive('datepicker', ['$window', '$compile', '$locale', '$filter', '$interpolate', function manageDirective($window, $compile, $locale, $filter, $interpolate) {
 
     var A_DAY_IN_MILLISECONDS = 86400000;
     return {
@@ -17,7 +17,8 @@
         'dateMonthTitle': '@',
         'dateYearTitle': '@',
         'buttonNextTitle': '@',
-        'buttonPrevTitle': '@'
+        'buttonPrevTitle': '@',
+        'startDay': '@'
       },
       'link': function linkingFunction($scope, element, attr) {
         //get child input
@@ -37,11 +38,11 @@
           , dateMinLimit
           , dateMaxLimit
           , date = new Date()
+          , startDay = 'monday'
           , isMouseOn = false
           , isMouseOnInput = false
           , datetime = $locale.DATETIME_FORMATS
           , pageDatepickers
-          , startDay = ""
           , htmlTemplate = '<div class="_720kb-datepicker-calendar" ng-blur="hideCalendar()">' +
           //month+year header
           '<div class="_720kb-datepicker-calendar-header" ng-hide="isMobile()">' +
@@ -49,7 +50,7 @@
           '<a href="javascript:void(0)" ng-click="prevMonth()" title="{{buttonPrevTitle}}">' + prevButton + '</a>' +
           '</div>' +
           '<div class="_720kb-datepicker-calendar-header-middle _720kb-datepicker-calendar-month">' +
-          '{{month}} <a href="javascript:void(0)" ng-click="showYearsPagination = !showYearsPagination"><span>{{year}} <i ng-if="!showYearsPagination">&dtrif;</i> <i ng-if="showYearsPagination">&urtri;</i> </span> </a>' +
+          '{{month}}' +
           '</div>' +
           '<div class="_720kb-datepicker-calendar-header-right">' +
           '<a href="javascript:void(0)" ng-click="nextMonth()" title="{{buttonNextTitle}}">' + nextButton + '</a>' +
@@ -70,16 +71,6 @@
           '</select>' +
           '</div>' +
           '</div>' +
-          //years pagination header
-          '<div class="_720kb-datepicker-calendar-header" ng-show="showYearsPagination">' +
-          '<div class="_720kb-datepicker-calendar-years-pagination">' +
-          '<a ng-class="{\'_720kb-datepicker-active\': y === year, \'_720kb-datepicker-disabled\': !isSelectableMaxYear(y) || !isSelectableMinYear(y)}" href="javascript:void(0)" ng-click="setNewYear(y)" ng-repeat="y in paginationYears">{{y}}</a>' +
-          '</div>' +
-          '<div class="_720kb-datepicker-calendar-years-pagination-pages">' +
-          '<a href="javascript:void(0)" ng-click="paginateYears(paginationYears[0])" ng-class="{\'_720kb-datepicker-item-hidden\': paginationYearsPrevDisabled}">' + prevButton + '</a>' +
-          '<a href="javascript:void(0)" ng-click="paginateYears(paginationYears[paginationYears.length -1 ])" ng-class="{\'_720kb-datepicker-item-hidden\': paginationYearsNextDisabled}">' + nextButton + '</a>' +
-          '</div>' +
-          '</div>' +
           //days column
           '<div class="_720kb-datepicker-calendar-days-header">' +
           '<div ng-repeat="d in daysInString"> {{d}} </div> ' +
@@ -90,8 +81,12 @@
           '<a href="javascript:void(0)" ng-repeat="item in days" ng-click="setDatepickerDay(item)" ng-class="{\'_720kb-datepicker-active\': day === item, \'_720kb-datepicker-disabled\': !isSelectableMinDate(year + \'/\' + monthNumber + \'/\' + item ) || !isSelectableMaxDate(year + \'/\' + monthNumber + \'/\' + item)}" class="_720kb-datepicker-calendar-day">{{item}}</a>' +
           '<a href="javascript:void(0)" ng-repeat="nx in nextMonthDays" class="_720kb-datepicker-calendar-day _720kb-datepicker-disabled">{{nx}}</a>' +
           '</div>' +
+          //footer years
+          '<div class="_720kb-datepicker-calendar-years-pagination">' +
+          '<a href="javascript:void(0)" ng-click="setNewYear(y)" ng-class="{\'_720kb-datepicker-item-hidden\': paginationYearsPrevDisabled}" ng-repeat="y in paginationYears" ng-if="$index < 12 && $index > 8">{{ y }}</a>' +
           '</div>' +
-			'</div>';
+          '</div>' + 
+          '</div>';
 
         // Respect previously configured interpolation symbols.
         htmlTemplate = htmlTemplate.replace(/{{/g, $interpolate.startSymbol())
@@ -108,7 +103,7 @@
             $scope.monthNumber = Number($filter('date')(date, 'MM')); // 01-12 like
             $scope.day = Number($filter('date')(date, 'dd')); //01-31 like
             $scope.year = Number($filter('date')(date, 'yyyy'));//2014 like
-						$scope.setDaysInMonth($scope.monthNumber, $scope.year);
+            $scope.setDaysInMonth($scope.monthNumber, $scope.year);
             $scope.setInputValue();
           }
         });

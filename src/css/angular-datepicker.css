@@ -187,3 +187,82 @@ datepicker, .datepicker, [datepicker],
   background: rgba(25,2,0,0.02);
   cursor: default;
 }
+
+/* OVERRIDE */
+
+._720kb-datepicker-calendar-body, ._720kb-datepicker-calendar-days-header, ._720kb-datepicker-calendar-header, ._720kb-datepicker-calendar-years-pagination-pages, .datepicker, [datepicker], datepicker {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+._720kb-datepicker-calendar {
+  border-radius: 0px;
+}
+._720kb-datepicker-calendar._720kb-datepicker-open{
+    border: 8px solid #e9e9e9;
+  }
+._720kb-datepicker-calendar-header:nth-child(odd){
+  background: transparent;
+}
+._720kb-datepicker-calendar-header-left, ._720kb-datepicker-calendar-header-right {
+  width: 15%;
+}
+._720kb-datepicker-calendar-header a:hover{
+  color: #ec0000;
+}
+._720kb-datepicker-calendar-month{
+  color: #333;
+  text-transform: capitalize;
+  font-size: .9em;
+}
+._720kb-datepicker-calendar-days-header{
+  background: transparent;
+}
+._720kb-datepicker-calendar-days-header div {
+  color: #eaeced;
+  font-size: .1em;
+  background: #eaeced;
+  border: 1px solid #cdd1d3;
+  margin:.5% .5% 0;
+  padding: 5px 0px;
+  width: 13.1%;
+  text-transform: capitalize;
+  text-align: center;
+}
+._720kb-datepicker-calendar-days-header div:first-letter {
+  color: #ec0000;
+  font-size: 12px;
+}
+._720kb-datepicker-calendar-body{
+  margin-top: .5%;
+}
+._720kb-datepicker-calendar-day{
+  background: #cdd1d3;
+  margin: .5%;
+  width: 13.1%;
+}
+._720kb-datepicker-calendar-day, ._720kb-datepicker-calendar-day._720kb-datepicker-active, ._720kb-datepicker-calendar-day:hover {
+  text-align: right;
+  padding-right: 4px;
+}
+._720kb-datepicker-calendar-day._720kb-datepicker-active{
+  box-shadow: inset 0 0 0 1px #000;
+}
+._720kb-datepicker-calendar-day:hover {
+  background: #ec0000;
+  color: #fff;
+}
+._720kb-datepicker-calendar-day._720kb-datepicker-disabled, ._720kb-datepicker-calendar-day._720kb-datepicker-disabled:hover, ._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-active._720kb-datepicker-disabled, ._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-active._720kb-datepicker-disabled:hover, ._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-disabled, ._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-disabled:hover {
+  background: #e9e9e9;
+  color: #a4a3a3;
+}
+._720kb-datepicker-calendar-years-pagination{
+  text-align: center;
+}
+._720kb-datepicker-calendar-years-pagination a, ._720kb-datepicker-calendar-years-pagination a:hover{
+  padding: 0 4px;
+  width: 25%;
+  font-size: 1.1em;
+}
+._720kb-datepicker-calendar-years-pagination a._720kb-datepicker-active {
+  color: #ec0000;
+  text-decoration: none;
+}
